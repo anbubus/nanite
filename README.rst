@@ -9,11 +9,10 @@ Arvora - Brain Computational School
 
 Brain Computational School
 
-  |python| |license| |github|  |rtfd|
+  |python| |license| |github|  |docs|
 
 
 :Author:  `Carlo E. T. Oliveira`_
-:Version: `23.06`_
 :Affiliation: `Universidade Federal do Rio de Janeiro`_
 :License: `GNU General Public License v3 or later (GPLv3+)`_
 :Homepage: `Projeto Arvora`_
@@ -47,7 +46,7 @@ LABASE_ - NCE_ - UFRJ_
 
 .. _Projeto Arvora: https://activufrj.nce.ufrj.br/raw/wiki/labase/alite_page
 
-.. |rtfd| image:: https://readthedocs.org/projects/supyplay/badge/?version=latest
+.. |rtfd| image:: https://readthedocs.org/projects/nanite/badge/?version=latest
    :target: https://imgur.com/hib4z1f
 
 .. |github| image:: https://img.shields.io/badge/release-24.03-blue
@@ -63,11 +62,11 @@ LABASE_ - NCE_ - UFRJ_
    :alt: ARVORA
    :width: 800px
 
-.. |python| image:: https://img.shields.io/github/languages/top/kwarwp/kwarwp
-   :target: https://www.python.org/downloads/release/python-383/
+.. |python| image:: https://img.shields.io/github/languages/top/carlotolla/nanite
+   :target: https://www.python.org/downloads/release/python-3122/
 
-.. |docs| image:: https://img.shields.io/readthedocs/supygirls
-   :target: https://supygirls.readthedocs.io/en/latest/index.html
+.. |docs| image:: https://img.shields.io/readthedocs/nanite
+   :target: https://nanite.readthedocs.io/en/latest/index.html
 
 .. |license| image:: https://img.shields.io/github/license/labase/supyplay
-   :target: https://raw.githubusercontent.com/Aliteing/alite/main/LICENSE
+   :target: https://raw.githubusercontent.com/carlotolla/nanite/main/LICENSE

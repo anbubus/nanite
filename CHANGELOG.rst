@@ -26,6 +26,13 @@ Added
 +++++
 
 * initial spike (05)
+* new page classes (05)
+    - :py:class:`SimplePage` A page used as a base for the others.
+    - :py:class:`LandingPage` Entry point for the platform.
+    - :py:class:`LoginPage` User Registration page.
+    - :py:class:`Arvora` Main class with the main functionality.
+    - :py:func:`main` Called entry page to start the application.
+
 
 Laboratório de Automação de Sistemas Educacionais
 -------------------------------------------------
