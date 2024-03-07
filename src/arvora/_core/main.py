@@ -136,11 +136,11 @@ class ProjectPage(SimplePage):
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         #hr = h.HR(Class = "content-divider")
 
-        pj_t1 = h.H1("Projeto ", Class = "title is-1")
-        pj_t2 = h.H1("ARVORA", Class="title is-1 main-text")
+        pj_t1 = h.H1("Projeto ", Class = "title main-subtext")
+        pj_t2 = h.H1("ARVORA", Class="title main-text")
         pj_t = h.DIV((pj_t1, pj_t2), Class="columns")
-        pj_s = h.H2("O que é a Brain Computational School", Class = "subtitle")
-        pj_a = h.A("Go", href='#intro', Class = "button is-white is-medium is-inverted")
+        pj_s = h.H2("O que é a Brain Computational School", Class = "subtitle is-1")
+        pj_a = h.A("Comece aqui!", href='#intro', Class = "button is-white is-medium is-inverted")
         pj_div=h.DIV((pj_t, pj_s, pj_a), Class="has-text-centered")
         pj = h.SECTION(pj_div, Class=" hero is-medium hero-body is-fullheight columns is-centered")
 
@@ -149,7 +149,7 @@ class ProjectPage(SimplePage):
         r_fig = h.DIV(r_img, Class="column is-3 ")
         r_p = h.P(text, Class="subtitle")
 
-        r_text = h.DIV((r_t, r_p), Class="hero is-large hero-body container has-text-left column is-6 featured-content")
+        r_text = h.DIV((r_t, r_p), Class="hero is-large hero-body container column is-6 featured-content")
         r = h.SECTION((r_fig, r_text), Class="columns")
 
         obj_t = h.H1("Objetivo", Class="title is-3 ") # objective title
@@ -161,7 +161,7 @@ class ProjectPage(SimplePage):
         cli_img = h.FIGURE((h.IMG(src="https://bulma.io/images/placeholders/256x256.png")), Class="image is-fullwidth")
         cli_fig = h.DIV(cli_img, Class="column is-3 ")
         cli_p = h.P(text,  Class = "subtitle")
-        cli_text = h.DIV((cli_t, cli_p), Class="hero is-large hero-body container has-text-left column is-6 featured-content")
+        cli_text = h.DIV((cli_t, cli_p), Class="hero is-large hero-body container column is-6 featured-content")
         cli = h.SECTION((cli_text, cli_fig), Class="columns")
 
         done_t = h.H1("Estágio Atual", Class="title is-3 ")  # Estage title
@@ -171,7 +171,7 @@ class ProjectPage(SimplePage):
                         Class="hero is-large hero-body container has-text-left columns")
         #r = h.SECTION((r_t, r_p), Class = "content has-text-left")
 
-        box = h.DIV((r, obj, cli, done), CLass = "hero box is-fullheight m-6")
+        box = h.DIV((r, obj, cli, done), CLass = "hero box m-6")
         sec = h.DIV((pj, box), Class = "")
 
         return sec
