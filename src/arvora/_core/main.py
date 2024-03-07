@@ -117,6 +117,29 @@ class LoginPage(SimplePage):
         cls = h.DIV(form, Class="columns is-flex is-flex-direction-column")
         return cls
 
+class ProjectPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_hero")
+    def build_body(self):
+        h = self.brython.html
+        r_t = h.H1("Title", Class="title") # resume title
+        r_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        obj_t = h.H1("Title", Class="title") # objective title
+        obj_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        obj_t = h.H1("Title", Class="title")  # objective title
+        obj_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        cli_t = h.H1("Title", Class="title")  # client title
+        cli_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        r_block = h.DIV((r_t, r_p), Class = "content has-text-left")
+        obj_block = h.DIV((obj_t, obj_p), Class="content has-text-left")
+        cli_block = h.DIV((cli_t, cli_p), Class="content has-text-left")
+
+        sec = h.SECTION((r_block, obj_block, cli_block), Class=f"hero box is-fullheight")
+
+        return sec
+        #o que ja foi feitos
+        #estagio do pojeto
+        #return h.DIV((tt1, tt2))
 
 class Arvora:
     ARVORA = None
@@ -135,6 +158,7 @@ class Arvora:
         SimplePage.PAGES = {f"_{page}_": SimplePage(br) for page, _ in MENU_OPTIONS}
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
+        SimplePage.PAGES["_PROJETO_"] = ProjectPage(br)
         _main = LandingPage(br)
         _main.show()
         return _main
