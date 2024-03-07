@@ -121,25 +121,57 @@ class ProjectPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
     def build_body(self):
-        h = self.brython.html
-        r_t = h.H1("Title", Class="title") # resume title
-        r_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-        obj_t = h.H1("Title", Class="title") # objective title
-        obj_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-        obj_t = h.H1("Title", Class="title")  # objective title
-        obj_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-        cli_t = h.H1("Title", Class="title")  # client title
-        cli_p = h.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-        r_block = h.DIV((r_t, r_p), Class = "content has-text-left")
-        obj_block = h.DIV((obj_t, obj_p), Class="content has-text-left")
-        cli_block = h.DIV((cli_t, cli_p), Class="content has-text-left")
 
-        sec = h.SECTION((r_block, obj_block, cli_block), Class=f"hero box is-fullheight")
+        #   ATENÇÃO
+        #   Segue abaixo as seguintes informações importantes:
+        #   Legenda: Title _t Subtitle _s Anchor _a Imagem _img
+        #   Temos Introdução, Objetivo, Usuario(Cliente) e Estágio Atual
+        #
+        #   O QUE FALTA? Estou com problemas em dimensionar a imagem. O código está na linha 145 com o r_img. Boa sorte e obrigado!
+        #   Se conseguir aumentar a parto do PROJETO ARVORA eu agradeceria também ehehehhe
+
+
+        h = self.brython.html
+
+        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        #hr = h.HR(Class = "content-divider")
+
+        pj_t1 = h.H1("Projeto ", Class = "title is-1")
+        pj_t2 = h.H1("ARVORA", Class="title is-1 main-text")
+        pj_t = h.DIV((pj_t1, pj_t2), Class="columns")
+        pj_s = h.H2("O que é a Brain Computational School", Class = "subtitle")
+        pj_a = h.A("Anchor", Class = "button is-white is-medium is-inverted")
+
+        pj = h.SECTION((pj_t, pj_s, pj_a), Class="hero is-medium hero-body container has-text-centered ")
+
+        r_t = h.H1("Introdução", Class="title is-3 ") # resume title
+        r_img = h.FIGURE((h.IMG(src="https://bulma.io/images/placeholders/128x128.png")), Class="image is-fullwidth")
+        r_p = h.P(text, Class = "subtitle")
+
+        r_text = h.DIV( (r_t, r_p), Class="hero is-large hero-body container has-text-left columns column is-6 is-offset-6")
+        r = h.SECTION((r_img,r_text), Class="columns")
+
+        obj_t = h.H1("Objetivo", Class="title is-3 ") # objective title
+        obj_p = h.P(text,  Class = "subtitle")
+        obj = h.SECTION((obj_t, obj_p),
+                        Class="hero is-large hero-body container has-text-left")
+
+        cli_t = h.H1("Usuário", Class="title is-3 ")  # client title
+        cli_p = h.P(text,  Class = "subtitle")
+        cli = h.SECTION((cli_t, cli_p), Class="hero is-large hero-body container has-text-left columns column is-6")
+
+        done_t = h.H1("Estágio Atual", Class="title is-3 ")  # Estage title
+        done_p1 = h.P(text, Class="subtitle")
+        done_p2 = h.P(text, Class="subtitle")
+        done = h.SECTION((done_t, done_p1, done_p2),
+                        Class="hero is-large hero-body container has-text-left columns")
+        #r = h.SECTION((r_t, r_p), Class = "content has-text-left")
+
+        box = h.DIV((r,obj, cli, done), CLass = "hero box is-fullheight")
+        sec = h.DIV((pj, box), Class = "")
 
         return sec
-        #o que ja foi feitos
-        #estagio do pojeto
-        #return h.DIV((tt1, tt2))
+
 
 class Arvora:
     ARVORA = None
