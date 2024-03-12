@@ -58,7 +58,7 @@ class SimplePage:
         sec = h.SECTION((hea, hby), Class=f"hero {self.hero_class} is-fullheight")
         return sec
 
-    def navigator(self, menu):
+    def navigator(self, menu, nav="is-fixed-top"):  #Alteração do navbar pois futuramente tentarei mudar suas classe dependendo da aba selecionada
         h = self.brython.html
 
         def do_item(title=None, icon=None):
@@ -72,7 +72,7 @@ class SimplePage:
         self.items = [do_item(**item) for item in menu]
         end = h.DIV(self.items[-1], Class="navbar-end")
         self.items = items = [nbr]+self.items[:-1]+[end]
-        nav = h.NAV(items, Class="navbar")
+        nav = h.NAV(items, Class=f"navbar {nav}")
         fna = h.DIV(h.DIV(nav, Class="container"), Class="first_nav")
         return fna
 
@@ -175,31 +175,107 @@ class ProjectPage(SimplePage):
         sec = h.DIV((pj, box), Class = "")
 
         return sec
+
+users = [
+    {
+        "name": "Roberto",
+        "email": "roberto@mail",
+        "points": "100",
+        "id": "1",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "tags": "#mav",
+        "date": "2021-01-21"
+    },
+    {
+        "name": "Amanda",
+        "email": "amanda@mail",
+        "points": "72",
+        "id": "2",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "tags": "#mav",
+        "date": "2021-01-21"
+    },
+    {
+        "name": "Roberto",
+        "email": "roberto@mail",
+        "points": "100",
+        "id": "1",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "tags": "#mav",
+        "date": "2021-01-21"
+    },
+    {
+        "name": "Amanda",
+        "email": "amanda@mail",
+        "points": "72",
+        "id": "2",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "tags": "#mav",
+        "date": "2021-01-21"
+    },
+    # {
+    #     "name": "Amanda",
+    #     "password": "1234",
+    #     "email": "amanda@mail",
+    #     "posts":[
+    #         {
+    #             "id": "1",
+    #             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    #             "tags": "#mav",
+    #             "date": "2021-01-21"
+    #         },
+    #     ]
+    #  },
+
+]
 class KnowledgePage(SimplePage):
     def __init__(self, brython, menu = MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
 
     def build_body(self):
         h = self.brython.html
-        usern = "Roberto"
-        userp = "@robertao_do_pix"
-        #no card tem a foto do usuario o nome e arroba
-        #coloquei media_content pois n sei se haverão @ de usuario
 
-
-        user_photo = h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")), Class = "media-left image is-48x48")
-
-        user_name = h.P(usern, Class = "title is-4")
-        user_prof = h.P(userp, Class = "subtitle is-6")
-        media_content = h.DIV((user_name, user_prof), Class = "media-content")
-        head = h.DIV((user_photo, media_content), Class = "header media ")
-
-        post_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
-        post_buttons = (h.BUTTON("Comentar", Class = "button is-primary"),
-                        h.BUTTON("Perguntar", Class="button is-info"),
-                        h.BUTTON("Artigos Filhos", Class="button"))
-        post = h.DIV((head, post_img, post_buttons), Class="column is-half is-offset-one-quarter card")
+        post = h.DIV(h.P("text"), Class="column is-half is-offset-one-quarter card")
         posts = h.DIV(post, Class="columns body-columns")
+
+        Dialog = self.brython.Dialog
+        InfoDialog= self.brython.InfoDialog
+
+        # def ok(ev):
+        #     comment_text =  comment.select_one("INPUT").value
+        #     comment.close()
+
+        def show_dialog(ev):
+            comment = Dialog("Test", ok_cancel=True)
+            comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
+            #comment.bind(comment.ok_button, "click")
+
+
+
+        for user in users:
+
+            user_photo = h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")), Class = "media-left image is-48x48")
+
+            user_name = h.P(user["name"], Class = "title is-4")
+            user_prof = h.P(user["email"], Class = "subtitle is-6")
+            user_content = h.DIV((user_name, user_prof), Class = "media-content")
+            head = h.DIV((user_photo, user_content), Class = "header media media left")
+
+            card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
+
+            card_content = h.DIV((h.P("Estrelas: " + user["points"]),
+                                 h.P(user["text"]),
+                                 h.P(user["tags"]),
+                                 h.P(user["date"])), Class="content")
+
+            card_buttons = (h.BUTTON("Comentar", Class = "button is-primary").bind("click", show_dialog),
+                            h.BUTTON("Perguntar", Class="button is-info"),
+                            h.BUTTON("Artigos Filhos", Class="button"))
+
+            post = h.DIV((head, card_img, card_content, card_buttons), Class="column is-half is-offset-one-quarter card")
+            posts += h.DIV(post, Class="columns body-columns")
+
+
 
         return posts
 
