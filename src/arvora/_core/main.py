@@ -175,7 +175,31 @@ class ProjectPage(SimplePage):
         sec = h.DIV((pj, box), Class = "")
 
         return sec
+class KnowledgePage(SimplePage):
+    def __init__(self, brython, menu = MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_hero")
 
+    def build_body(self):
+        h = self.brython.html
+        usern = "Roberto"
+        userp = "@robertao_do_pix"
+        #no card tem a foto do usuario o nome e arroba
+        #coloquei media_content pois n sei se haverão @ de usuario
+
+
+        user_photo = h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")), Class = "media-left image is-48x48")
+
+        user_name = h.P(usern, Class = "title is-4")
+        user_prof = h.P(userp, Class = "subtitle is-6")
+        media_content = h.DIV((user_name, user_prof), Class = "media-content")
+        head = h.DIV((user_photo, media_content), Class = "header media ")
+
+        post_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
+
+        post = h.DIV((head, post_img), Class="column is-half is-offset-one-quarter card")
+        posts = h.DIV(post, Class="columns body-columns")
+
+        return posts
 
 class Arvora:
     ARVORA = None
@@ -195,6 +219,7 @@ class Arvora:
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
         SimplePage.PAGES["_PROJETO_"] = ProjectPage(br)
+        SimplePage.PAGES["_CONHECIMENTO_"] = KnowledgePage(br)
         _main = LandingPage(br)
         _main.show()
         return _main
