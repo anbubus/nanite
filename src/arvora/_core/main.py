@@ -195,8 +195,10 @@ class KnowledgePage(SimplePage):
         head = h.DIV((user_photo, media_content), Class = "header media ")
 
         post_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
-
-        post = h.DIV((head, post_img), Class="column is-half is-offset-one-quarter card")
+        post_buttons = (h.BUTTON("Comentar", Class = "button is-primary"),
+                        h.BUTTON("Perguntar", Class="button is-info"),
+                        h.BUTTON("Artigos Filhos", Class="button"))
+        post = h.DIV((head, post_img, post_buttons), Class="column is-half is-offset-one-quarter card")
         posts = h.DIV(post, Class="columns body-columns")
 
         return posts
