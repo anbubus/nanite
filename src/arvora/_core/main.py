@@ -22,7 +22,7 @@ Changelog
 |   `Labase <http://labase.selfip.org/>`_ - `NCE <http://portal.nce.ufrj.br>`_ - `UFRJ <https://ufrj.br/>`_.
 
 """
-MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA INTERAÇÃO LOGIN USER".split(),
+MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA INTERAÇÃO LOGIN USER RASCUNHO ESCREVER ARTIGO".split(),
                      "bars-progress book book-medical hands-asl-interpreting right-to-bracket user".split()))
 
 
@@ -235,8 +235,7 @@ class KnowledgePage(SimplePage):
     def build_body(self):
         h = self.brython.html
 
-        post = h.DIV(h.P("text"), Class="column is-half is-offset-one-quarter card")
-        posts = h.DIV(post, Class="columns body-columns")
+        card = ""
 
         Dialog = self.brython.Dialog
         InfoDialog= self.brython.InfoDialog
@@ -244,40 +243,106 @@ class KnowledgePage(SimplePage):
         # def ok(ev):
         #     comment_text =  comment.select_one("INPUT").value
         #     comment.close()
+        def click(ev):
+            if ev.target.id == "Draft":
+                SimplePage.PAGES["_RASCUNHO_"].show()
+            elif ev.target.id == "Writing":
+                SimplePage.PAGES["_ESCREVER_"].show()
+        def show_article(ev):
+            SimplePage.PAGES["_ARTIGO_"].show()
+        def show_dialog(ev):
+            comment = Dialog("Test", ok_cancel=True)
+            comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
+            comment.bind("click", comment.ok_button)
+
+        search_bar = h.FORM(h.DIV(h.INPUT(Id="local_search",
+                                          Class="input is-white has-fixed-size block has-background-grey has-text-success-light mb-4 white-placeholder",
+                                          placeholder="Pesquisar artigos"), Class="column"))
+
+        for user in users:
+
+            card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
+
+            card_content = h.DIV((
+                            h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")), Class = "media-left image is-48x48"),
+                            h.P(user["name"], Class = "title is-4"),
+                            h.P(user["email"], Class="subtitle is-6"),
+                            h.P("Estrelas: " + user["points"]),
+                            h.P(user["text"]),
+                            h.P(user["tags"]),
+                            h.P(user["date"])), Class="content")
+
+            card_buttons = h.DIV((
+                            h.BUTTON("Comentar", Class = "button is-primary").bind("click", show_dialog),
+                            h.BUTTON("Perguntar", Class="button is-info"),
+                            h.BUTTON("Artigos Filhos", Class="button")), Class = "card-footer")
+
+            card += h.DIV((card_img, card_content, card_buttons), Class="box").bind("click", show_article)
+        post = h.DIV((search_bar, card), Class= "column is-half is-offset-one-quarter ")
+        posts = h.DIV(post, Class="columns body-columns")
+        btn1 = h.BUTTON("Rascunho", Id='Draft', Class="button has-background-grey-light is-4 block is-fullwidth")
+        btn2 = h.BUTTON("Escreva seu artigo", Id="Writing",
+                        Class="button has-background-grey-light is-4 block is-fullwidth")
+        side_tab = h.DIV((btn2, btn1), Class="column is-3")
+        side_tab.bind("click", click)
+
+        wrapper = h.DIV((side_tab, posts), Class="columns mt-5")
+        return wrapper
+
+
+class Article(SimplePage):
+    def __init__(self, brython, menu = MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_hero")
+    def build_body(self):
+        h = self.brython.html
+        Dialog = self.brython.Dialog
+        InfoDialog = self.brython.InfoDialog
+        user = users[0]
 
         def show_dialog(ev):
             comment = Dialog("Test", ok_cancel=True)
             comment.panel <= h.DIV("Escreva seu comentário: " + h.INPUT())
-            #comment.bind(comment.ok_button, "click")
+            comment.bind("click", comment.ok_button)
+
+        card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"),
+                            Class="card-image image is-4by3")
+
+        card_content = h.DIV((
+            h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")),
+                     Class="media-left image is-48x48"),
+            h.P(user["name"], Class="title is-4"),
+            h.P(user["email"], Class="subtitle is-6"),
+            h.P("Estrelas: " + user["points"]),
+            h.P(user["text"]),
+            h.P(user["tags"]),
+            h.P(user["date"])), Class="content")
+
+        card_buttons = h.DIV((
+            h.BUTTON("Comentar", Class="button is-primary").bind("click", show_dialog),
+            h.BUTTON("Perguntar", Class="button is-info"),
+            h.BUTTON("Artigos Filhos", Class="button")), Class="card-footer")
 
 
 
-        for user in users:
 
-            user_photo = h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")), Class = "media-left image is-48x48")
 
-            user_name = h.P(user["name"], Class = "title is-4")
-            user_prof = h.P(user["email"], Class = "subtitle is-6")
-            user_content = h.DIV((user_name, user_prof), Class = "media-content")
-            head = h.DIV((user_photo, user_content), Class = "header media media left")
-
-            card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"), Class="card-image image is-4by3")
-
-            card_content = h.DIV((h.P("Estrelas: " + user["points"]),
-                                 h.P(user["text"]),
-                                 h.P(user["tags"]),
-                                 h.P(user["date"])), Class="content")
-
-            card_buttons = (h.BUTTON("Comentar", Class = "button is-primary").bind("click", show_dialog),
-                            h.BUTTON("Perguntar", Class="button is-info"),
-                            h.BUTTON("Artigos Filhos", Class="button"))
-
-            post = h.DIV((head, card_img, card_content, card_buttons), Class="column is-half is-offset-one-quarter card")
-            posts += h.DIV(post, Class="columns body-columns")
+        #comment section
 
 
 
+
+        #user comment
+        user_photo = h.FIGURE(
+            h.P((h.IMG(src="https://bulma.io/images/placeholders/128x128.png")), Class="image is-64x64"),
+            Class="media-left")
+        comment_box = h.DIV(h.TEXTAREA(placeholder = "Escreva aqui...", Class = " Focused textarea has-fixed-size has-background-grey"), Class = "media-content field control")
+        comment_section = h.ARTICLE((user_photo, comment_box), Class="media mt-5")
+
+        card = h.DIV((card_img, card_content, card_buttons, comment_section), Class="box")
+        post = h.DIV(card, Class="column is-half is-offset-one-quarter ")
+        posts = h.DIV(post, Class="columns body-columns")
         return posts
+
 
 class Arvora:
     ARVORA = None
@@ -298,6 +363,7 @@ class Arvora:
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
         SimplePage.PAGES["_PROJETO_"] = ProjectPage(br)
         SimplePage.PAGES["_CONHECIMENTO_"] = KnowledgePage(br)
+        SimplePage.PAGES["_ARTIGO_"] = Article(br)
         _main = LandingPage(br)
         _main.show()
         return _main
